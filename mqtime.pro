@@ -1,4 +1,5 @@
 QT += widgets
+QT += mqtt
 
 CONFIG += c++17
 
@@ -7,10 +8,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    MqttHandler.cpp \
+    Participant.cpp \
+    Timeslot.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    MqttHandler.h \
+    Participant.h \
+    TimeSlot.h \
+    Timeslot.h \
     mainwindow.h
 
 FORMS += \
