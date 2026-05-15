@@ -22,7 +22,8 @@ private:
     MqttHandler *m_mqttHandler;
 private slots:
     // This is the function that will run when the signal is caught
-    void onMqttConnected();
+    void on_mqttConnected();
     void on_btnMqttConnect_clicked();
+    void on_mqttTopicSubscribed(const QString &topic);
 };
 #endif // MAINWINDOW_H

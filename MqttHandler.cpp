@@ -2,7 +2,7 @@
 #include <QUuid>
 
 MqttHandler::MqttHandler(QObject *parent)
-    : QObject(parent)
+    : QObject(parent) //QObject constructor
     , m_brokerAddress("broker.hivemq.com")
     , // Default initial value
     m_brokerPort(1883)
@@ -10,12 +10,13 @@ MqttHandler::MqttHandler(QObject *parent)
     m_clientId("")
     , m_username("")
     , m_password("")
+    , m_topic("test_topic")
 {
     m_client = new QMqttClient(this);
 
     // Sync initial values to the QMqttClient instance
     m_client->setHostname(m_brokerAddress);
-    m_client->setPort(static_cast<quint16>(m_brokerPort));
+    m_client->setPort(m_brokerPort);
     m_clientId = QUuid::createUuid().toString().remove('{').remove('}');
     m_client->setClientId(m_clientId);
 }
@@ -84,3 +85,25 @@ void MqttHandler::connectToBroker()
 
     m_client->connectToHost();
 }
+
+void MqttHandler::subscribeToTopic()
+{
+    if (m_client->state() != QMqttClient::Connected) {
+        // Optional: Log a warning or queue the topic for later
+        return;
+    }
+    // Actual MQTT subscription
+    auto subscription = m_client->subscribe(m_topic);
+    // if success
+    if (subscription) {
+        // Connect to the messageReceived signal for this specific subscription
+        connect(subscription,
+                &QMqttSubscription::messageReceived,
+                this,
+                &MqttHandler::handleMessage);
+        qDebug("Success sub");
+        emit mqttTopicSubscribed(m_topic);
+    }
+}
+
+void MqttHandler::handleMessage(const QMqttMessage &message) {}

@@ -11,7 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_mqttHandler,
             &MqttHandler::mqttConnectionEstablished,
             this,
-            &MainWindow::onMqttConnected);
+            &MainWindow::on_mqttConnected);
+    connect(m_mqttHandler,
+            &MqttHandler::mqttTopicSubscribed,
+            this,
+            &MainWindow::on_mqttTopicSubscribed);
 }
 
 MainWindow::~MainWindow()
@@ -19,15 +23,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onMqttConnected()
+void MainWindow::on_mqttConnected()
 {
     ui->statusLabel->setText("Connected to Broker");
+    ui->statusLabel->setStyleSheet("color: green;");
+    m_mqttHandler->subscribeToTopic();
+
+    // Perhaps enable the button to create a session
+    //ui->createEventButton->setEnabled(true);
+}
+void MainWindow::on_mqttTopicSubscribed(const QString &topic)
+{
+    ui->statusLabel->setText(ui->statusLabel->text() + "\nSubscribed: " + topic);
     ui->statusLabel->setStyleSheet("color: green;");
 
     // Perhaps enable the button to create a session
     //ui->createEventButton->setEnabled(true);
 }
-
 void MainWindow::on_btnMqttConnect_clicked()
 {
     m_mqttHandler->connectToBroker();

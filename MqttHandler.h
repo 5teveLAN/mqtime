@@ -15,6 +15,7 @@ private:
     QString m_clientId;
     QString m_username;
     QString m_password;
+    QString m_topic; // subscribed topic
     QMqttClient *m_client;
 
 public:
@@ -25,23 +26,25 @@ public:
     void setBrokerPort(quint16 port);
     void setClientCredentials(const QString &user, const QString &pass);
     void setClientId(const QString &id);
+    void setTopic(const QString &topic);
 
     // Getter for UI
     QString getBrokerAddress() const;
     quint16 getBrokerPort() const;
 
     void connectToBroker();
-    void subscribeToTopic(const QString &topic);
+    void subscribeToTopic();
     void publishMessage(const QString &topic, const QString &message);
 
 signals:
     void mqttMessageReceived(const QString &topic, const QString &message);
     void mqttConnectionEstablished();
+    void mqttTopicSubscribed(const QString &topic);
     void mqttErrorOccurred(const QString &error);
     void mqttSettingsChanged(); // Notify UI that values were updated
 
 private slots:
-    //void handleMessage(const QByteArray &message, const QMqttTopicName &topic);
+    void handleMessage(const QMqttMessage &message);
 };
 
 #endif // MQTTHANDLER_H
