@@ -44,7 +44,7 @@ signals:
     void mqttSettingsChanged(); // Notify UI that values were updated
 
 private slots:
-    void handleMessage(const QMqttMessage &message);
+    void handleMessage(const QByteArray &message, const QMqttTopicName &topic);
 };
 
 #endif // MQTTHANDLER_H
