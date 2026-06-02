@@ -13,7 +13,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mqtthandler.cpp \
-    session.cpp
+    participant.cpp \
+    session.cpp \
+    timeslot.cpp
 
 HEADERS += \
     event.h \

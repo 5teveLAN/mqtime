@@ -17,6 +17,6 @@ public:
 signals:
 private slots:
     //a function receives QByteArray from MqttHandler, and update m_event
-    void updateEvent(const QByteArray &data);
+    //void updateEvent(const QByteArray &data);
 };
 #endif // EVENTHANDLER_H
