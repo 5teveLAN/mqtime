@@ -1,9 +1,2 @@
-// #include <string>
-// #include "TimeSlot.h"
-// using namespace std;
-
-// TimeSlot::TimeSlot() {}
-// void TimeSlot::addVote(string user) {
-// 	voters
-
-// }
+#include "timeslot.h"
+using namespace std;

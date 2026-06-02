@@ -8,13 +8,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    event.cpp \
     eventhandler.cpp \
     main.cpp \
     mainwindow.cpp \
     mqtthandler.cpp \
-    session.cpp
+    participant.cpp \
+    session.cpp \
+    timeslot.cpp
 
 HEADERS += \
+    event.h \
     eventhandler.h \
     mainwindow.h \
     mqtthandler.h \

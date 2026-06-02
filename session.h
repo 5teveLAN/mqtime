@@ -12,7 +12,7 @@ class Session : public QObject
 private:
     QString m_username;
     MqttHandler *m_mqttHandler;
-    EventHandler *m_EventHandler;
+    EventHandler *m_eventHandler;
     QString m_inviteCode;
     bool m_isHost;
     void setRole(bool isHost);

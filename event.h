@@ -6,7 +6,8 @@
 #include <QString>
 #include <QStringList>
 #include <QTime>
-
+#include "participant.h"
+#include "timeslot.h"
 class Participant;
 class TimeSlot;
 

@@ -5,3 +5,5 @@ EventHandler::EventHandler(QObject *parent)
 {
     m_event = new Event();
 }
+
+
