@@ -86,9 +86,14 @@ QCalendarWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="page_1">
+       <property name="font">
+        <font>
+         <family>.AppleSystemUIFont</family>
+        </font>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="label">
@@ -146,7 +151,7 @@ QCalendarWidget {
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="page_2_host">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLineEdit" name="txtEventName"/>
@@ -285,7 +290,7 @@ QCalendarWidget {
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_3">
+      <widget class="QWidget" name="page_2_guest">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QLineEdit" name="txtInviteCode">
@@ -316,7 +321,7 @@ QCalendarWidget {
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_4">
+      <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -349,7 +354,7 @@ QCalendarWidget {
         <item>
          <widget class="QPushButton" name="pushButton">
           <property name="text">
-           <string>PushButton</string>
+           <string>送出</string>
           </property>
          </widget>
         </item>
@@ -365,7 +370,7 @@ QCalendarWidget {
      <x>0</x>
      <y>0</y>
      <width>802</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
