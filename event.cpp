@@ -69,3 +69,37 @@ QString Event::getBestTime() const
 
     return bestTime;
 }
+QString Event::getTitle() const
+{
+    return m_title;
+}
+
+QString Event::getCreator() const
+{
+    return m_creator;
+}
+
+QList<QDate> Event::getSelectedDates() const
+{
+    return m_selectedDates;
+}
+
+QTime Event::getStartTime() const
+{
+    return m_startTime;
+}
+
+QTime Event::getEndTime() const
+{
+    return m_endTime;
+}
+
+QList<Participant> Event::getParticipants() const
+{
+    return m_participants;
+}
+
+QList<TimeSlot> Event::getTimeSlots() const
+{
+    return m_timeSlots;
+}

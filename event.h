@@ -7,10 +7,9 @@
 #include <QString>
 #include <QStringList>
 #include <QTime>
+
 #include "participant.h"
 #include "timeslot.h"
-class Participant;
-class TimeSlot;
 
 class Event
 {
@@ -24,7 +23,7 @@ private:
     QTime m_startTime;
     QTime m_endTime;
 
-    // 參與者與時間格
+    // 參與者與時段
     QList<Participant> m_participants;
     QList<TimeSlot> m_timeSlots;
 
@@ -34,58 +33,38 @@ public:
     // Setter
     void setTitle(const QString &title);
     void setCreator(const QString &creator);
-
     void setSelectedDates(const QList<QDate> &dates);
-
     void setTimeRange(const QTime &startTime,const QTime &endTime);
 
     // Getter
-    QString getTitle() const
-    {
-        return m_title;
-    }
-
-    QString getCreator() const
-    {
-        return m_creator;
-    }
-
-    QList<QDate> getSelectedDates() const
-    {
-        return m_selectedDates;
-    }
-
-    QTime getStartTime() const
-    {
-        return m_startTime;
-    }
-
-    QTime getEndTime() const
-    {
-        return m_endTime;
-    }
+    QString getTitle() const;
+    QString getCreator() const;
+    QList<QDate> getSelectedDates() const;
+    QTime getStartTime() const;
+    QTime getEndTime() const;
 
     // Participant
     void addParticipant(const QString &name);
 
+    QList<Participant> getParticipants() const;
+
     // TimeSlot
     void addTimeSlot(const QString &time);
 
-    // 一般投票
+    QList<TimeSlot> getTimeSlots() const;
+
+    // 投票
     void vote(const QString &user,const QString &time);
 
-    // 自動建立時段
-    void createSchedule(int selectDays,int timeRange);
+    // 根據日期與時間範圍建立時段
+    void createSchedule(int intervalMinutes);
 
-    // UI 格子投票
-    void voteAvailableTimes(const QString &user,const QList<int> &select);
+    void voteAvailableTimes(const QString &user,const QList<int> &selectedIndexes);
 
-    // 找最佳時間
+    // 找出最佳時段
     QString getBestTime() const;
 
-    // JSON
     QByteArray toJson() const;
-
     bool fromJson(const QByteArray &data);
 };
 
