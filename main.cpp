@@ -14,17 +14,16 @@ int main(int argc, char *argv[])
     event.addParticipant("Bob");
     event.addParticipant("Claire");
 
-    event.addTimeSlot("6/10 09:00");
-    event.addTimeSlot("6/10 14:00");
-    event.addTimeSlot("6/11 09:00");
+    event.addTimeSlot("2026-06-10 09:00");
+    event.addTimeSlot("2026-06-11 09:00");
 
-    event.vote("Amy", "6/10 09:00");
-    event.vote("Bob", "6/10 09:00");
-    event.vote("Claire", "6/11 09:00");
+    event.vote("Amy",   "2026-06-10 09:00");
+    event.vote("Bob",   "2026-06-10 09:00");
+    event.vote("Claire","2026-06-11 09:00");
+    event.vote("Amy",   "2026-06-11 09:00");
 
     qDebug() << "活動名稱:" << event.getTitle();
     qDebug() << "建立者:" << event.getCreator();
-    qDebug() << "最佳時段:" << event.getBestTime();
-
+    qDebug() << "最佳時段:" << event.getBestTimes();
     return 0;
 }

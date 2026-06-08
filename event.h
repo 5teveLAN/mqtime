@@ -62,7 +62,7 @@ public:
     void voteAvailableTimes(const QString &user,const QList<int> &selectedIndexes);
 
     // 找出最佳時段
-    QString getBestTime() const;
+    QStringList getBestTimes() const;
 
     QByteArray toJson() const;
     bool fromJson(const QByteArray &data);

@@ -53,21 +53,27 @@ void Event::vote(const QString &user,const QString &time)
     }
 }
 
-QString Event::getBestTime() const
+QStringList Event::getBestTimes() const
 {
+    QStringList bestTimes;
     int bestScore = -1;
-    QString bestTime;
 
-    for (const TimeSlot &slot : m_timeSlots)
+    for(const TimeSlot &slot : m_timeSlots)
     {
-        if (slot.getVoteCount() > bestScore)
+        if(slot.getVoteCount() > bestScore)
         {
             bestScore = slot.getVoteCount();
-            bestTime = slot.getTime();
+
+            bestTimes.clear();
+            bestTimes.append(slot.getTime());
+        }
+        else if(slot.getVoteCount() == bestScore)
+        {
+            bestTimes.append(slot.getTime());
         }
     }
 
-    return bestTime;
+    return bestTimes;
 }
 QString Event::getTitle() const
 {
