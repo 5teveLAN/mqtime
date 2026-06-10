@@ -6,10 +6,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    //MainWindow w;
     Session s;
-    w.show();
+    //w.show();
     s.start();
-    s.initConnections(&w);
+    //s.initConnections(&w);
     return QCoreApplication::exec();
 }

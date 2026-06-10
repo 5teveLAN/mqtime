@@ -4,14 +4,12 @@
 #include <QObject>
 #include <QString>
 #include "eventhandler.h"
-#include "mqtthandler.h"
 class MainWindow; // for initConnections(MainWindow *window)
 class Session : public QObject
 {
     Q_OBJECT
 private:
     QString m_username;
-    MqttHandler *m_mqttHandler;
     EventHandler *m_eventHandler;
     QString m_inviteCode;
     bool m_isHost;

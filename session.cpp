@@ -7,23 +7,11 @@ Session::Session()
 {}
 void Session::start()
 {
-    m_mqttHandler = new MqttHandler(this);
     m_eventHandler = new EventHandler(this);
 }
 void Session::initConnections(MainWindow *window)
 {
-    // ui button
-    connect(window, &MainWindow::connectionRequested, m_mqttHandler, &MqttHandler::connectToBroker);
-    connect(window, &MainWindow::roleSelected, this, &Session::setRole);
 
-    connect(m_mqttHandler,
-            &MqttHandler::mqttConnectionEstablished,
-            window,
-            &MainWindow::updateConnectionStatusUi);
-    connect(m_mqttHandler,
-            &MqttHandler::mqttTopicSubscribed,
-            window,
-            &MainWindow::updateSubscriptionStatusUi);
 }
 QString Session::getInviteCode()
 {

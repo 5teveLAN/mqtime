@@ -1,5 +1,4 @@
 QT += widgets
-QT += mqtt
 
 CONFIG += c++17
 
@@ -12,7 +11,6 @@ SOURCES += \
     eventhandler.cpp \
     main.cpp \
     mainwindow.cpp \
-    mqtthandler.cpp \
     participant.cpp \
     session.cpp \
     timeslot.cpp
@@ -21,7 +19,6 @@ HEADERS += \
     event.h \
     eventhandler.h \
     mainwindow.h \
-    mqtthandler.h \
     participant.h \
     session.h \
     timeslot.h
