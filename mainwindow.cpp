@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -64,4 +65,35 @@ void MainWindow::on_pushButton_clicked()
         timeSlots << col + "_" + row;
     }
     emit timeSelectionChanged(timeSlots);
+}
+
+void MainWindow::onRoleSetupSuccessed(bool isHost)
+{
+    if (isHost) {
+        ui->stackedWidget->setCurrentWidget(ui->page_2_host);
+    } else {
+        ui->stackedWidget->setCurrentWidget(ui->page_2_guest);
+    }
+}
+
+void MainWindow::onEventCreationSuccessed(QString inviteCode)
+{
+    ui->lblInviteCode->setText("Hi👋, 邀請碼: " + inviteCode);
+    ui->lblInviteCode_2->setText("Hi👋, 邀請碼: " + inviteCode);
+    ui->stackedWidget->setCurrentWidget(ui->page_3);
+}
+
+void MainWindow::onEventJoinSuccessed(Event *event)
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_3);
+}
+
+void MainWindow::onEventJoinFailed()
+{
+    QMessageBox::warning(this, "錯誤", "邀請碼無效，請重新輸入！");
+}
+
+void MainWindow::onEventMatrixUpdated(Event *event)
+{
+    ui->tableTimeMatrix->clearContents();
 }

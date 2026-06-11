@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include <QStringList>
 #include <QTime>
+
+class Event;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,6 +32,17 @@ signals:
     // Page 3
     void timeSelectionChanged(const QStringList &timeSlots);
 
+public slots:
+    // Page 1
+    void onRoleSetupSuccessed(bool isHost);
+    // Page 2 (Host)
+    void onEventCreationSuccessed(QString inviteCode);
+    // Page 2 (Guest)
+    void onEventJoinSuccessed(Event *event);
+    void onEventJoinFailed();
+    // Page 3
+    void onEventMatrixUpdated(Event *event);
+
 private slots:
     void on_btnHost_clicked();
     void on_btnGuest_clicked();
@@ -41,5 +53,4 @@ private slots:
 private:
     Ui::MainWindow *ui;
 };
-
 #endif // MAINWINDOW_H
