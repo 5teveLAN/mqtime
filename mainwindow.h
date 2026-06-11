@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QStringList>
 #include <QTime>
+#include <event.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -14,27 +15,38 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    Ui::MainWindow *ui;
+    Event *m_event;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
+    void test(MainWindow *window);
 signals:
-    // Setting Page
-    void mqttConfigSubmitted(const QString &host, int port);
-
     // Page 1
-    void roleSelected(const QString &username, bool isHost);
+    void roleSelected(QString username, bool isHost);
 
     // Page 2 (Host)
-    void createEventSubmitted(const QString &eventName, const QStringList &dates, const QTime &startTime, const QTime &endTime);
+    void createEventSubmitted(QString eventName, QStringList dates, QTime startTime, QTime endTime);
 
     // Page 2 (Guest)
-    void joinEventSubmitted(const QString &inviteCode);
+    void joinEventSubmitted(QString inviteCode);
 
     // Page 3
-    void timeSelectionChanged(const QStringList &timeSlots);
+    void timeSelectionChanged(QStringList timeSlots);
 
-private:
-    Ui::MainWindow *ui;
+public slots:
+    // Page 1
+    void onRoleSetupSuccessed(bool isHost);
+
+    // Page 2 (Host)
+    void onEventCreationSuccessed(QString inviteCode, Event *event);
+
+    // Page 2 (Guest)
+    void onEventJoinSuccessed(Event *event);
+    void onEventJoinFailed();
+
+    // Page 3
+    void onEventMatrixUpdated();
+
 };
 #endif // MAINWINDOW_H
