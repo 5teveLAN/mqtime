@@ -76,7 +76,7 @@ void MainWindow::onRoleSetupSuccessed(bool isHost)
     }
 }
 
-void MainWindow::onEventCreationSuccessed(QString inviteCode)
+void MainWindow::onEventCreationSuccessed(QString inviteCode, Event *event)
 {
     ui->lblInviteCode->setText("Hi👋, 邀請碼: " + inviteCode);
     ui->lblInviteCode_2->setText("Hi👋, 邀請碼: " + inviteCode);

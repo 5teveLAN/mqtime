@@ -3,8 +3,7 @@
 #include <QMainWindow>
 #include <QStringList>
 #include <QTime>
-
-class Event;
+#include "event.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,7 +35,7 @@ public slots:
     // Page 1
     void onRoleSetupSuccessed(bool isHost);
     // Page 2 (Host)
-    void onEventCreationSuccessed(QString inviteCode);
+    void onEventCreationSuccessed(QString inviteCode, Event *event);
     // Page 2 (Guest)
     void onEventJoinSuccessed(Event *event);
     void onEventJoinFailed();
