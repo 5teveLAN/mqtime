@@ -12,15 +12,22 @@ private:
     QString m_username;
     EventHandler *m_eventHandler;
     QString m_inviteCode;
+    MainWindow *m_mainWindow;
     bool m_isHost;
     void setRole(bool isHost);
 
+    void initConnections();
+
 public:
-    Session();
-    void start();
-    void initConnections(MainWindow *window);
-    QString getInviteCode();
-private slots:
+    Session(MainWindow *window);
+signals:
+    // Page 1
+    void roleSetupSuccessed(bool isHost);
+
+public slots:
+    // Page 1
+    void onRoleSelected(QString username, bool isHost);
+
 };
 
 #endif // SESSION_H

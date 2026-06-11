@@ -2,35 +2,81 @@
 #include <QRandomGenerator>
 #include "mainwindow.h"
 
-Session::Session()
-    : m_username("ggd")
-{}
-void Session::start()
+Session::Session(MainWindow *window)
+    : m_username("ggd"),
+    m_mainWindow(window)
 {
-    m_eventHandler = new EventHandler(this);
+    m_eventHandler = new EventHandler();
+    //m_mqttHandler = new MqttHandler();
+    this->initConnections();
 }
-void Session::initConnections(MainWindow *window)
+
+void Session::initConnections()
 {
+    // ==========================================
+    // Page 1: Identity Setup
+    // ==========================================
+    connect(
+        m_mainWindow, &MainWindow::roleSelected,
+        this, &Session::onRoleSelected
+        );
 
+    connect(
+        this, &Session::roleSetupSuccessed,
+        m_mainWindow, &MainWindow::onRoleSetupSuccessed
+        );
+
+
+    // ==========================================
+    // Page 2 (Host): Create Event
+    // ==========================================
+    connect(
+        m_mainWindow, &MainWindow::createEventSubmitted,
+        m_eventHandler, &EventHandler::onCreateEventSubmitted
+        );
+
+    connect(
+        m_eventHandler, &EventHandler::eventCreationSuccessed,
+        m_mainWindow, &MainWindow::onEventCreationSuccessed
+        );
+
+
+    // ==========================================
+    // Page 2 (Guest): Join Event
+    // ==========================================
+    connect(
+        m_mainWindow, &MainWindow::joinEventSubmitted,
+        m_eventHandler, &EventHandler::onJoinEventSubmitted
+        );
+
+    connect(
+        m_eventHandler, &EventHandler::eventJoinSuccessed,
+        m_mainWindow, &MainWindow::onEventJoinSuccessed
+        );
+
+
+    // ==========================================
+    // Page 3: Time Matrix Grid
+    // ==========================================
+    connect(
+        m_mainWindow, &MainWindow::timeSelectionChanged,
+        m_eventHandler, &EventHandler::onTimeSelectionChanged
+        );
+
+    connect(
+        m_eventHandler, &EventHandler::eventMatrixUpdated,
+        m_mainWindow, &MainWindow::onEventMatrixUpdated
+        );
 }
-QString Session::getInviteCode()
+
+
+void Session::onRoleSelected(QString username, bool isHost)
 {
-    const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    const int codeLength = 5;
-    QString inviteCode;
-
-    // Optimization: Pre-allocate memory for 5 characters
-    inviteCode.reserve(codeLength);
-
-    for (int i = 0; i < codeLength; ++i) {
-        // Generate a secure random index
-        quint32 index = QRandomGenerator::global()->bounded(
-            static_cast<quint32>(possibleCharacters.length()));
-        inviteCode.append(possibleCharacters.at(index));
-    }
-
-    return inviteCode;
+    m_username = username;
+    m_isHost = isHost;
+    emit roleSetupSuccessed(isHost);
 }
+
 
 void Session::setRole(bool isHost)
 {
