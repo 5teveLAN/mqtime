@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QString>
 #include "eventhandler.h"
-class MainWindow; // for initConnections(MainWindow *window)
+class MainWindow;
+class EventHandler; // for initConnections(MainWindow *window)
 class Session : public QObject
 {
     Q_OBJECT
@@ -20,6 +21,7 @@ private:
 
 public:
     Session(MainWindow *window);
+    QString getCurrentUser();
 signals:
     // Page 1
     void roleSetupSuccessed(bool isHost);

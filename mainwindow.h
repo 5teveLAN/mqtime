@@ -2,10 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStringList>
-#include <QTime>
-#include <event.h>
-
+#include "event.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

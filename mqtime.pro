@@ -1,4 +1,5 @@
 QT += widgets
+QT += mqtt
 
 CONFIG += c++17
 

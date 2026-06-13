@@ -11,14 +11,14 @@ private:
     QStringList m_availableTimes;
 
 public:
-    // Pass by const reference for efficiency in Qt
+    Participant() = default;
+
     explicit Participant(const QString &name);
 
-    // Member function to record a vote
     void vote(const QString &time);
 
-    // Getters
     QString name() const;
+
     QStringList availableTimes() const;
 };
 

@@ -6,9 +6,14 @@ Session::Session(MainWindow *window)
     : m_username("ggd"),
     m_mainWindow(window)
 {
-    m_eventHandler = new EventHandler();
+    m_eventHandler = new EventHandler(this);
     //m_mqttHandler = new MqttHandler();
     this->initConnections();
+}
+
+QString Session::getCurrentUser()
+{
+    return m_username;
 }
 
 void Session::initConnections()

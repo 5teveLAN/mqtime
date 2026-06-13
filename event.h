@@ -1,57 +1,69 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include <QByteArray>
 #include <QDate>
 #include <QList>
 #include <QString>
 #include <QStringList>
 #include <QTime>
+
 #include "participant.h"
 #include "timeslot.h"
-class Participant;
-class TimeSlot;
 
 class Event
 {
 private:
-    // Core descriptive metadata
+    // 活動基本資訊
     QString m_title;
     QString m_creator;
 
-    // Structural execution boundaries
-    QList<QDate> m_selectedDates; // Replaced range fields with an explicit discrete date collection
+    // 日期與時間範圍
+    QList<QDate> m_selectedDates;
     QTime m_startTime;
     QTime m_endTime;
 
-    // Aggregated data entity lists
+    // 參與者與時段
     QList<Participant> m_participants;
     QList<TimeSlot> m_timeSlots;
 
 public:
-    explicit Event() = default;
+    Event() = default;
 
-    // --- Setters (Using const references to optimize system performance) ---
+    // Setter
     void setTitle(const QString &title);
     void setCreator(const QString &creator);
-
-    // Replaced setDateRange with a discrete date assignment routine
     void setSelectedDates(const QList<QDate> &dates);
-    void setTimeRange(const QTime &startTime, const QTime &endTime);
+    void setTimeRange(const QTime &startTime,const QTime &endTime);
 
-    // --- Getters (Marked const as they are read-only properties) ---
-    QString getTitle() const { return m_title; }
-    QString getCreator() const { return m_creator; }
-    QList<QDate> getSelectedDates() const { return m_selectedDates; }
-    QTime getStartTime() const { return m_startTime; }
-    QTime getEndTime() const { return m_endTime; }
+    // Getter
+    QString getTitle() const;
+    QString getCreator() const;
+    QList<QDate> getSelectedDates() const;
+    QTime getStartTime() const;
+    QTime getEndTime() const;
 
-    // --- Core Business Logic Operations ---
+    // Participant
     void addParticipant(const QString &name);
-    void addTimeSlot(const QString &time);
-    void vote(const QString &user, const QString &time);
-    QString getBestTime() const;
 
-    // --- Data Transport Routines ---
+    QList<Participant> getParticipants() const;
+
+    // TimeSlot
+    void addTimeSlot(const QString &time);
+
+    QList<TimeSlot> getTimeSlots() const;
+
+    // 投票
+    void vote(const QString &user,const QString &time);
+
+    // 根據日期與時間範圍建立時段
+    void createSchedule(int intervalMinutes);
+
+    void voteAvailableTimes(const QString &user,const QList<int> &selectedIndexes);
+
+    // 找出最佳時段
+    QStringList getBestTimes() const;
+
     QByteArray toJson() const;
     bool fromJson(const QByteArray &data);
 };

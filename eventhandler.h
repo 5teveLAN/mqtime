@@ -3,19 +3,22 @@
 
 #include <QObject>
 #include "event.h"
+#include "session.h"
 
 class Event;
+class Session;
 class EventHandler : public QObject
 {
     Q_OBJECT
 private:
     Event *m_event;
+    Session *m_session;
     QString m_inviteCode;
     QString generateInviteCode();
     Event *joinEvent(QString inviteCode);
 
 public:
-    explicit EventHandler(QObject *parent = nullptr);
+    explicit EventHandler(Session *session, QObject *parent = nullptr);
 
 signals:
     // Page 2 (Host)
