@@ -4,25 +4,32 @@
 #include <QObject>
 #include <QString>
 #include "eventhandler.h"
-#include "mqtthandler.h"
-class MainWindow; // for initConnections(MainWindow *window)
+class MainWindow;
+class EventHandler; // for initConnections(MainWindow *window)
 class Session : public QObject
 {
     Q_OBJECT
 private:
     QString m_username;
-    MqttHandler *m_mqttHandler;
     EventHandler *m_eventHandler;
     QString m_inviteCode;
+    MainWindow *m_mainWindow;
     bool m_isHost;
     void setRole(bool isHost);
 
+    void initConnections();
+
 public:
-    Session();
-    void start();
-    void initConnections(MainWindow *window);
-    QString getInviteCode();
-private slots:
+    Session(MainWindow *window);
+    QString getCurrentUser();
+signals:
+    // Page 1
+    void roleSetupSuccessed(bool isHost);
+
+public slots:
+    // Page 1
+    void onRoleSelected(QString username, bool isHost);
+
 };
 
 #endif // SESSION_H

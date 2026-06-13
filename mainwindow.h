@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mqtthandler.h"
+#include "event.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -12,25 +12,38 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    Ui::MainWindow *ui;
+    Event *m_event;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
-
-private:
-    Ui::MainWindow *ui;
-    MqttHandler *m_mqttHandler;
+    void test(MainWindow *window);
 signals:
-    void connectionRequested();
-    void roleSelected(bool isHost);
+    // Page 1
+    void roleSelected(QString username, bool isHost);
+
+    // Page 2 (Host)
+    void createEventSubmitted(QString eventName, QStringList dates, QTime startTime, QTime endTime);
+
+    // Page 2 (Guest)
+    void joinEventSubmitted(QString inviteCode);
+
+    // Page 3
+    void timeSelectionChanged(QStringList timeSlots);
+
 public slots:
-    // This is the function that will run when the signal is caught
-    void updateConnectionStatusUi();
-    void updateSubscriptionStatusUi(const QString &topic);
-private slots:
-    void on_btnMqttConnect_clicked();
-    void on_btnHost_clicked();
-    void on_btnMqttSubscribe_clicked();
-    void on_btnGuest_clicked();
+    // Page 1
+    void onRoleSetupSuccessed(bool isHost);
+
+    // Page 2 (Host)
+    void onEventCreationSuccessed(QString inviteCode, Event *event);
+
+    // Page 2 (Guest)
+    void onEventJoinSuccessed(Event *event);
+    void onEventJoinFailed();
+
+    // Page 3
+    void onEventMatrixUpdated();
+
 };
 #endif // MAINWINDOW_H
